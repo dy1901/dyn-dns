@@ -1,13 +1,21 @@
 require './dnspod_api'
 require 'daemons'
 
-logger = Logger.new('running.log')
-config=YAML.load_file(File.expand_path('./config.yml'))
+
+path = Dir.pwd
+
 
 Daemons.run_proc("dyn-dns") do
+  Dir.chdir(path)
   puts 'dyn-dns daemon starting...'
+
+  config=YAML.load_file(File.expand_path('./config.yml'))
+
+  logger = Logger.new('running.log')
   logger.info('dyn-dns daemon starting...')
+
   api = DnspodApi.new(config['token_id'], config['token'], config['get_ip_service'])
+ 
   loop {
     begin
       current_ip     = api.get_current_ip()
