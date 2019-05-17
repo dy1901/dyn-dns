@@ -2,7 +2,7 @@ require './dnspod_api'
 require 'daemons'
 
 logger = Logger.new('running.log')
-config=YAML.load_file(File.expand_path('./Config.yml'))
+config=YAML.load_file(File.expand_path('./config.yml'))
 
 Daemons.run_proc("dyn-dns") do
   puts 'dyn-dns daemon starting...'
