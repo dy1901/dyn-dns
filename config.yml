@@ -1,0 +1,7 @@
+token_id: 
+token: 
+
+domain: 
+sub_domain: 
+
+get_ip_service: "http://members.3322.org/dyndns/getip"
