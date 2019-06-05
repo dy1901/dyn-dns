@@ -18,13 +18,13 @@ Daemons.run_proc("dyn-dns") do
  
   loop {
     begin
-      current_ip     = api.get_current_ip()
+      current_ip     = api.get_current_ip().strip
       subdomain_info = api.get_subdomain_info(config['domain'],config['sub_domain'])
       record_id      = subdomain_info['id']
       registered_ip = subdomain_info['value'].strip
 
       if(current_ip != registered_ip)
-        logger.info("Public IP(#{publicIP.strip}) is different from sub-domain IP(#{subDomain['value'].strip}), need to update!")
+        logger.info("Public IP(#{current_ip}) is different from sub-domain IP(#{registered_ip}), need to update!")
         api.update_subdomain_ip(record_id, config['domain'], config['sub_domain'], current_ip)
       end
     rescue => e
